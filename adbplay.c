@@ -172,8 +172,7 @@ int main(int argc, char **argv) {
 
     // Create the engine object
     const SLEngineOption engineOptions[] = { {(SLuint32) SL_ENGINEOPTION_THREADSAFE, (SLuint32) SL_BOOLEAN_TRUE} };
-    DCL_IFREQ(engineIfReq,({SL_IID_SEEK, SL_IID_MUTESOLO }),({SL_BOOLEAN_FALSE, SL_BOOLEAN_FALSE}));
-    handle_SLresult("slCreateEngine",slCreateEngine(&engineRoot, 1, engineOptions, USE_IFREQ(engineIfReq)));
+    handle_SLresult("slCreateEngine",slCreateEngine(&engineRoot, 1, engineOptions, 0, NULL, NULL));
     SL_CALL(engineRoot,Realize,(engineRoot, SL_BOOLEAN_FALSE));
     SL_GETINF(engineRoot,SL_IID_ENGINE,engine);
 
@@ -192,7 +191,7 @@ int main(int argc, char **argv) {
     SLDataSink audioSink = {&locatorOutputMix, NULL};
 
     // Create the audio player
-    DCL_IFREQ(playerIfReq,({SL_IID_SEEK, SL_IID_MUTESOLO, SL_IID_PREFETCHSTATUS, SL_IID_PLAY}),({SL_BOOLEAN_FALSE, SL_BOOLEAN_FALSE, SL_BOOLEAN_TRUE , SL_BOOLEAN_TRUE }));
+    DCL_IFREQ(playerIfReq,({SL_IID_SEEK, SL_IID_MUTESOLO, SL_IID_PREFETCHSTATUS, SL_IID_PLAY}),({SL_BOOLEAN_TRUE, SL_BOOLEAN_TRUE, SL_BOOLEAN_TRUE , SL_BOOLEAN_TRUE }));
     SL_CALL(engine,CreateAudioPlayer,(engine, &audioPlayer, &audioSource, &audioSink, USE_IFREQ(playerIfReq)));
     enableObjectEvents(audioPlayer,"audioPlayer");
     SL_CALL(audioPlayer,Realize,(audioPlayer, SL_BOOLEAN_FALSE));
