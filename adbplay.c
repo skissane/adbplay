@@ -50,7 +50,7 @@ SLObjectItf outputMix = NULL;
 SLObjectItf audioPlayer = NULL;
 SLPlayItf playObj;
 
-static void tsprintf(const char* format, ...) {
+void tsprintf(const char* format, ...) {
     time_t rawtime;
     struct tm *timeinfo;
     char buffer[64];
@@ -70,7 +70,7 @@ static void tsprintf(const char* format, ...) {
     va_end(args);
 }
 
-static void handle_SLresult(const char* op, SLresult result) {
+void handle_SLresult(const char* op, SLresult result) {
     if (result != SL_RESULT_SUCCESS) {
         tsprintf("ERROR: Failure in %s(). Error code: %s\n", op, SL_RESULT2STR(result));
         exit(EXIT_FAILURE);
