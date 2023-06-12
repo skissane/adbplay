@@ -171,8 +171,9 @@ int main(int argc, char **argv) {
     tsprintf("Playing audio file: %s\n", path);
 
     // Create the engine object
+    const SLEngineOption engineOptions[] = { {(SLuint32) SL_ENGINEOPTION_THREADSAFE, (SLuint32) SL_BOOLEAN_TRUE} };
     DCL_IFREQ(engineIfReq,({SL_IID_SEEK, SL_IID_MUTESOLO }),({SL_BOOLEAN_FALSE, SL_BOOLEAN_FALSE}));
-    handle_SLresult("slCreateEngine",slCreateEngine(&engineRoot, 0, NULL, USE_IFREQ(engineIfReq)));
+    handle_SLresult("slCreateEngine",slCreateEngine(&engineRoot, 1, engineOptions, USE_IFREQ(engineIfReq)));
     SL_CALL(engineRoot,Realize,(engineRoot, SL_BOOLEAN_FALSE));
     SL_GETINF(engineRoot,SL_IID_ENGINE,engine);
 
